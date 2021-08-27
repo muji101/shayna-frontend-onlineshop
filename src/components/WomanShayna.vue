@@ -56,6 +56,21 @@
                 keranjangUser: []
             };
         },
+        mounted(){
+            axios
+            // .get("http://shayna-backend.belajarkoding.com/api/products")
+            .get("http://127.0.0.1:8000/api/products")
+            .then(res => (this.products = res.data.data.data))
+            .catch(err => console.log(err));
+
+            if (localStorage.getItem("keranjangUser")) {
+                try {
+                    this.keranjangUser = JSON.parse(localStorage.getItem("keranjangUser"));
+                } catch (e) {
+                    localStorage.removeItem("keranjangUser");
+                }
+            }
+        },
         methods: {
             saveKeranjang(idProduct, nameProduct, priceProduct, photoProduct){
                 var productStored = {
@@ -68,15 +83,11 @@
                 this.keranjangUser.push(productStored);
                 const parsed = JSON.stringify(this.keranjangUser);
                 localStorage.setItem('keranjangUser', parsed);
+
+                window.location.reload();
             }
-        },
-        mounted(){
-            axios
-            .get("http://shayna-backend.belajarkoding.com/api/products")
-            // .get("http://127.0.0.1:8000/api/products")
-            .then(res => (this.products = res.data.data.data))
-            .catch(err => console.log(err));
         }
+        
     };
 </script>
 

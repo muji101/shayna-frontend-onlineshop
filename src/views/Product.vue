@@ -134,16 +134,16 @@
                 }
             }
             axios
-            .get("http://shayna-backend.belajarkoding.com/api/products", {
-                params: {
-                    id: this.$route.params.id
-                }
-            })
-            // .get("http://127.0.0.1:8000/api/products", {
+            // .get("http://shayna-backend.belajarkoding.com/api/products", {
             //     params: {
             //         id: this.$route.params.id
             //     }
             // })
+            .get("http://127.0.0.1:8000/api/products", {
+                params: {
+                    id: this.$route.params.id
+                }
+            })
             .then(res => (this.setDataPricture(res.data.data)))
             .catch(err => console.log(err));
         }
