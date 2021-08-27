@@ -58,8 +58,8 @@
         },
         mounted(){
             axios
-            // .get("http://shayna-backend.belajarkoding.com/api/products")
-            .get("http://127.0.0.1:8000/api/products")
+            .get("http://shayna-backend.belajarkoding.com/api/products")
+            // .get("http://127.0.0.1:8000/api/products")
             .then(res => (this.products = res.data.data.data))
             .catch(err => console.log(err));
 

@@ -43,7 +43,7 @@
                                                 <h5>{{ keranjang.name }}</h5>
                                             </td>
                                             <td class="p-price first-row">${{ keranjang.price }}</td>
-                                            <td @click="removeItem(keranjangUser.index)"  class="delete-item">
+                                            <td @click="removeItem(keranjang.id)"  class="delete-item">
                                                 <a href="#">
                                                     <i class="material-icons">close</i>
                                                 </a>
@@ -95,7 +95,7 @@
                                 <ul>
                                     <li class="subtotal">ID Transaction <span>#SH12000</span></li>
                                     <li class="subtotal mt-3">Subtotal <span>${{ totalHarga }}.00</span></li>
-                                    <li class="subtotal mt-3">Pajak <span>10% ${{ ditambahPajak }}.00</span></li>
+                                    <li class="subtotal mt-3">Pajak <span>10% | ${{ ditambahPajak }}.00</span></li>
                                     <li class="subtotal mt-3">Total Biaya <span>${{ totalBiaya }}.00</span></li>
                                     <li class="subtotal mt-3">Bank Transfer <span>Mandiri</span></li>
                                     <li class="subtotal mt-3">No. Rekening <span>2208 1996 1403</span></li>
@@ -136,10 +136,18 @@ export default {
         } 
     },
     methods: {
-        removeItem(index){
+        removeItem(idx){
+             // cari tahu id dari si item yang akan di hapus
+            let keranjangUserStorage = JSON.parse(localStorage.getItem('keranjangUser'));
+            let itemKeranjangUserStorage = keranjangUserStorage.map(itemKeranjangUserStorage => itemKeranjangUserStorage.id);
+            
+            // cocokkan idx item dengan id yang ada di storage
+            let index = itemKeranjangUserStorage.findIndex(id => id == idx);
             this.keranjangUser.splice(index, 1);
+
             const parsed = JSON.stringify(this.keranjangUser);
             localStorage.setItem('keranjangUser', parsed);
+            // window.location.reload();
         },
 
         // fungsi mengirim data ke API
@@ -159,8 +167,8 @@ export default {
         }
 
         axios
-            .post("http://localhost:8000/api/checkout", checkoutData)
-            // .post("http://shayna-backend.belajarkoding.com/api/checkout", checkoutData)
+            // .post("http://localhost:8000/api/checkout", checkoutData)
+            .post("http://shayna-backend.belajarkoding.com/api/checkout", checkoutData)
             .then(() => this.$router.push('success'))
             .catch(err => console.log(err));
         }

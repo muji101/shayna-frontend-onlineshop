@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="select-button">
                                         <a href="#" class="primary-btn view-card"><router-link to="/cart" style=" color: #FFF;">VIEW CARD</router-link></a>
-                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                        <a  href="#" class="primary-btn checkout-btn">CHECK OUT</a>
                                     </div>
                                 </div>
                             </li>
